@@ -26,8 +26,8 @@ const WorkCard = ({ img,video, name, description, onClick }) => {
             width="700"
             height="500"
             src={video}
-            frameborder="1"
-            allowfullscreen
+            frameBorder="1"
+            allowFullScreen
             loading="lazy"
           />
         ):null}
