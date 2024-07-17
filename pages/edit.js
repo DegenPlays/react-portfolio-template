@@ -46,6 +46,8 @@ const Edit = () => {
           description: "Web Design & Development",
           imageSrc:
             "https://images.unsplash.com/photo-1517479149777-5f3b1511d5ad?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTAyfHxwYXN0ZWx8ZW58MHx8MHw%3D&auto=format&fit=crop&w=400&q=60",
+          videoSrc:
+            "https://images.unsplash.com/photo-1517479149777-5f3b1511d5ad?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTAyfHxwYXN0ZWx8ZW58MHx8MHw%3D&auto=format&fit=crop&w=400&q=60",
 
           url: "http://chetanverma.com/",
         },
@@ -322,6 +324,44 @@ const Edit = () => {
               </div>
             </div>
             <div className="mt-5 flex items-center">
+              <label className="w-1/5 text-lg opacity-50">Show Contact</label>
+              <div className="w-4/5 ml-10 flex items-center">
+                <Button
+                  onClick={() => setData({ ...data, showContact: true })}
+                  type={data.showContact && "primary"}
+                >
+                  Yes
+                </Button>
+                <Button
+                  onClick={() => setData({ ...data, showContact: false })}
+                  classes={
+                    !data.showContact && "bg-red-500 text-white hover:bg-red-600"
+                  }
+                >
+                  No
+                </Button>
+              </div>
+            </div> 
+            <div className="mt-5 flex items-center">
+              <label className="w-1/5 text-lg opacity-50">Show About</label>
+              <div className="w-4/5 ml-10 flex items-center">
+                <Button
+                  onClick={() => setData({ ...data, showAbout: true })}
+                  type={data.showAbout && "primary"}
+                >
+                  Yes
+                </Button>
+                <Button
+                  onClick={() => setData({ ...data, showAbout: false })}
+                  classes={
+                    !data.showAbout && "bg-red-500 text-white hover:bg-red-600"
+                  }
+                >
+                  No
+                </Button>
+              </div>
+            </div>
+            <div className="mt-5 flex items-center">
               <label className="w-1/5 text-lg opacity-50">Custom Cursor</label>
               <div className="w-4/5 ml-10 flex items-center">
                 <Button
@@ -398,6 +438,22 @@ const Edit = () => {
                         editProjects(index, {
                           ...project,
                           imageSrc: e.target.value,
+                        })
+                      }
+                      className="w-4/5 ml-10 p-2 rounded-md shadow-lg border-2"
+                      type="text"
+                    ></input>
+                  </div>
+                  <div className="flex items-center mt-2">
+                    <label className="w-1/5 text-lg opacity-50">
+                      Video Source
+                    </label>
+                    <input
+                      value={project.videoSrc}
+                      onChange={(e) =>
+                        editProjects(index, {
+                          ...project,
+                          videoSrc: e.target.value,
                         })
                       }
                       className="w-4/5 ml-10 p-2 rounded-md shadow-lg border-2"
