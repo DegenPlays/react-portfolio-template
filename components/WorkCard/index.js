@@ -9,7 +9,7 @@ const WorkCard = ({ img,video, name, description, onClick }) => {
     <h1 className="mt-5 text-3xl font-medium">
       {name ? name : "Project Name"}
     </h1>
-      {img ? (<div
+    {img ? (<div
         className="relative rounded-lg overflow-hidden transition-all ease-out duration-300 h-48 mob:h-auto"
         style={{ height: "600px" }}
       >
@@ -21,10 +21,10 @@ const WorkCard = ({ img,video, name, description, onClick }) => {
       </div>)
       : null}
       {video?(
-         <iframe 
-            title="Pool Funding Overview"
-            width="700"
-            height="500"
+         <iframe
+            title ="Pool Funding Overview"
+            width = {600}
+            height = {400}
             src={video}
             frameBorder="1"
             allowFullScreen
