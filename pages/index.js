@@ -103,6 +103,7 @@ export default function Home() {
                 img={project.imageSrc}
                 video={project.videoSrc}
                 name={project.title}
+                logo={project.titleImage}
                 description={project.description}
                 onClick={() => window.open(project.url)}
               />
