@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useRouter } from 'next/router';
 import Button from "../components/Button";
 import Header from "../components/Header";
 import { v4 as uuidv4 } from "uuid";
@@ -7,6 +8,8 @@ import { useTheme } from "next-themes";
 // Data
 import yourData from "../data/portfolio.json";
 import Cursor from "../components/Cursor";
+
+
 
 const Edit = () => {
   // states
@@ -49,7 +52,9 @@ const Edit = () => {
           videoSrc:
             "https://images.unsplash.com/photo-1517479149777-5f3b1511d5ad?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTAyfHxwYXN0ZWx8ZW58MHx8MHw%3D&auto=format&fit=crop&w=400&q=60",
 
+          projectUrl: "http://chetanverma.com/projects/"+uuidv4(),
           url: "http://chetanverma.com/",
+          buttonText: "join"
         },
       ],
     });
@@ -481,6 +486,34 @@ const Edit = () => {
                         editProjects(index, {
                           ...project,
                           url: e.target.value,
+                        })
+                      }
+                      className="w-4/5 ml-10 p-2 rounded-md shadow-lg border-2"
+                      type="text"
+                    ></input>
+                  </div>
+                  <div className="flex items-center mt-2">
+                    <label className="w-1/5 text-lg opacity-50">projectUrl</label>
+                    <input
+                      value={project.projectUrl}
+                      onChange={(e) =>
+                        editProjects(index, {
+                          ...project,
+                          projectUrl: e.target.value,
+                        })
+                      }
+                      className="w-4/5 ml-10 p-2 rounded-md shadow-lg border-2"
+                      type="text"
+                    ></input>
+                  </div>
+                  <div className="flex items-center mt-2">
+                    <label className="w-1/5 text-lg opacity-50">buttonText</label>
+                    <input
+                      value={project.buttonText}
+                      onChange={(e) =>
+                        editProjects(index, {
+                          ...project,
+                          buttonText: e.target.value,
                         })
                       }
                       className="w-4/5 ml-10 p-2 rounded-md shadow-lg border-2"

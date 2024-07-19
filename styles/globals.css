@@ -75,3 +75,11 @@ body {
   background: inherit;
   border-radius: inherit;
 }
+
+.main-content {
+  padding-top: 60px; /* Adjust based on your header height */
+}
+
+.mask-gradient {
+  mask-image: linear-gradient(to bottom, transparent 0%, black 100%);
+}

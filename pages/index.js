@@ -1,4 +1,5 @@
 import { useRef } from "react";
+import { useRouter } from 'next/router';
 import Header from "../components/Header";
 import ServiceCard from "../components/ServiceCard";
 import Socials from "../components/Socials";
@@ -15,6 +16,7 @@ import Cursor from "../components/Cursor";
 import data from "../data/portfolio.json";
 
 export default function Home() {
+  const router = useRouter();
   // Ref
   const workRef = useRef();
   const aboutRef = useRef();
@@ -63,7 +65,8 @@ export default function Home() {
           handleWorkScroll={handleWorkScroll}
           handleAboutScroll={handleAboutScroll}
         />
-        <div className="laptop:mt-20 mt-10">
+        {/* <div className="laptop:mt-20 mt-10"> */}
+        <div className="pt-16">
           <div className="mt-5">
             <h1
               ref={textOne}
@@ -94,7 +97,7 @@ export default function Home() {
           <Socials className="mt-2 laptop:mt-5" />
         </div>
         <div className="mt-10 laptop:mt-30 p-2 laptop:p-0" ref={workRef}>
-          <h1 className="text-2xl text-bold">Opportunites</h1>
+          <h1 id="opportunities" className="text-2xl text-bold">Opportunites</h1>
 
           <div className="mt-5 laptop:mt-10 grid grid-cols-1 tablet:grid-cols-2 gap-4">
             {data.projects.map((project) => (
@@ -105,7 +108,7 @@ export default function Home() {
                 name={project.title}
                 logo={project.titleImage}
                 description={project.description}
-                onClick={() => window.open(project.url)}
+                onClick={() => router.push(project.projectUrl)}
               />
             ))}
           </div>
@@ -132,7 +135,7 @@ export default function Home() {
           </div>
         )}
         {/* <div className="mt-10 laptop:mt-40 p-2 laptop:p-0" ref={aboutRef}>
-          <h1 className="tablet:m-10 text-2xl text-bold">About.</h1>
+          <h1 id="about"className="tablet:m-10 text-2xl text-bold">About.</h1>
           <p className="tablet:m-10 mt-2 text-xl laptop:text-3xl w-full laptop:w-3/5">
             {data.aboutpara}
           </p>
