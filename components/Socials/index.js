@@ -8,9 +8,11 @@ const Socials = ({ className }) => {
   const { theme } = useTheme();
   return (
     <div>
-      <h1 className="text-2xl text-bold">
-        Join the community
-      </h1>
+      <div className="flex justify-center mt-5">
+        <h1 className="text-2xl text-bold">
+          Join the community
+        </h1>
+      </div>
       <div className={`${className} flex flex-wrap mob:flex-nowrap link  `}>
         {yourData.socials.map((social, index) => (
           <Button classes={`${theme === "dark"

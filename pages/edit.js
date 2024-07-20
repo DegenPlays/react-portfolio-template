@@ -39,12 +39,29 @@ const Edit = () => {
   };
 
   const addProject = () => {
+    // Get a list of all current project IDs
+    const existingIds = data.projects.map(project => project.id);
+
+    // Sort the IDs
+    existingIds.sort((a, b) => a - b);
+
+    // Find the first available ID
+    let newId = 0;
+    for (let i = 0; i < existingIds.length; i++) {
+        if (existingIds[i] !== i) {
+            newId = i;
+            break;
+        }
+    }
+    if (newId === existingIds.length) {
+        newId = existingIds.length;
+    }
     setData({
       ...data,
       projects: [
         ...data.projects,
         {
-          id: data.projects.length,
+          id: newId,
           title: "New Project",
           description: "Web Design & Development",
           imageSrc:

@@ -1,10 +1,11 @@
 import { useRouter } from 'next/router';
-import { useState,useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useTheme } from "next-themes";
 import Header from "../../components/Header";
 import Button from "../../components/Button";
 import yourData from "../../data/portfolio.json";
 import Cursor from "../../components/Cursor";
+import Socials from "../../components/Socials";
 import Head from "next/head";
 
 const ProjectPage = ({ project }) => {
@@ -50,7 +51,7 @@ const ProjectPage = ({ project }) => {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ name:userName,email, projectName }),
+                body: JSON.stringify({ name: userName, email, projectName }),
             });
 
             const result = await response.json();
@@ -85,6 +86,10 @@ const ProjectPage = ({ project }) => {
                         handleWorkScroll={handleWorkScroll}
                         handleAboutScroll={handleAboutScroll}
                     />
+
+                    <div className="flex justify-center mt-5">
+                        <Socials className="mt-2 laptop:mt-5" />
+                    </div>
                     {project.titleImage ? (
                         <div
                             className="relative rounded-lg overflow-hidden transition-all ease-out duration-300 h-48 mob:h-auto"
@@ -147,6 +152,10 @@ const ProjectPage = ({ project }) => {
                         <Button classes={`${theme === "dark" ? "bg-slate-900" : "bg-slate-100"}`} onClick={() => window.open(project.url)}>
                             {project.buttonText}
                         </Button>
+                    </div>
+
+                    <div className="flex justify-center mt-5">
+                        <h2>Or Submit your name and email for more information</h2>
                     </div>
 
                     {/* Email Submission Form */}
