@@ -49,12 +49,18 @@ const Edit = () => {
           description: "Web Design & Development",
           imageSrc:
             "https://images.unsplash.com/photo-1517479149777-5f3b1511d5ad?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTAyfHxwYXN0ZWx8ZW58MHx8MHw%3D&auto=format&fit=crop&w=400&q=60",
+          videoText: "",
           videoSrc:
             "https://images.unsplash.com/photo-1517479149777-5f3b1511d5ad?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTAyfHxwYXN0ZWx8ZW58MHx8MHw%3D&auto=format&fit=crop&w=400&q=60",
 
-          projectUrl: "http://chetanverma.com/projects/"+uuidv4(),
+          projectUrl: "http://chetanverma.com/projects/" + uuidv4(),
           url: "http://chetanverma.com/",
-          buttonText: "join"
+          buttonText: "join",
+          projectVideoText: "",
+          projectVideoSrc:
+            "https://images.unsplash.com/photo-1517479149777-5f3b1511d5ad?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTAyfHxwYXN0ZWx8ZW58MHx8MHw%3D&auto=format&fit=crop&w=400&q=60",
+          pageBottomText:
+            "https://images.unsplash.com/photo-1517479149777-5f3b1511d5ad?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTAyfHxwYXN0ZWx8ZW58MHx8MHw%3D&auto=format&fit=crop&w=400&q=60",
         },
       ],
     });
@@ -346,7 +352,7 @@ const Edit = () => {
                   No
                 </Button>
               </div>
-            </div> 
+            </div>
             <div className="mt-5 flex items-center">
               <label className="w-1/5 text-lg opacity-50">Show About</label>
               <div className="w-4/5 ml-10 flex items-center">
@@ -464,6 +470,22 @@ const Edit = () => {
                   </div>
                   <div className="flex items-center mt-2">
                     <label className="w-1/5 text-lg opacity-50">
+                      Video Text
+                    </label>
+                    <input
+                      value={project.videoText}
+                      onChange={(e) =>
+                        editProjects(index, {
+                          ...project,
+                          videoText: e.target.value,
+                        })
+                      }
+                      className="w-4/5 ml-10 p-2 rounded-md shadow-lg border-2"
+                      type="text"
+                    ></input>
+                  </div>
+                  <div className="flex items-center mt-2">
+                    <label className="w-1/5 text-lg opacity-50">
                       Video Source
                     </label>
                     <input
@@ -479,21 +501,7 @@ const Edit = () => {
                     ></input>
                   </div>
                   <div className="flex items-center mt-2">
-                    <label className="w-1/5 text-lg opacity-50">url</label>
-                    <input
-                      value={project.url}
-                      onChange={(e) =>
-                        editProjects(index, {
-                          ...project,
-                          url: e.target.value,
-                        })
-                      }
-                      className="w-4/5 ml-10 p-2 rounded-md shadow-lg border-2"
-                      type="text"
-                    ></input>
-                  </div>
-                  <div className="flex items-center mt-2">
-                    <label className="w-1/5 text-lg opacity-50">projectUrl</label>
+                    <label className="w-1/5 text-lg opacity-50">Project Page URL</label>
                     <input
                       value={project.projectUrl}
                       onChange={(e) =>
@@ -507,7 +515,65 @@ const Edit = () => {
                     ></input>
                   </div>
                   <div className="flex items-center mt-2">
-                    <label className="w-1/5 text-lg opacity-50">buttonText</label>
+                    <label className="w-1/5 text-lg opacity-50">
+                      Project Video Text
+                    </label>
+                    <input
+                      value={project.projectVideoText}
+                      onChange={(e) =>
+                        editProjects(index, {
+                          ...project,
+                          projectVideoText: e.target.value,
+                        })
+                      }
+                      className="w-4/5 ml-10 p-2 rounded-md shadow-lg border-2"
+                      type="text"
+                    ></input>
+                  </div>
+                  <div className="flex items-center mt-2">
+                    <label className="w-1/5 text-lg opacity-50">Project Video Source</label>
+                    <input
+                      value={project.projectVideoSrc}
+                      onChange={(e) =>
+                        editProjects(index, {
+                          ...project,
+                          projectVideoSrc: e.target.value,
+                        })
+                      }
+                      className="w-4/5 ml-10 p-2 rounded-md shadow-lg border-2"
+                      type="text"
+                    ></input>
+                  </div>
+                  <div className="flex items-center mt-2">
+                    <label className="w-1/5 text-lg opacity-50">Button desciption</label>
+                    <input
+                      value={project.pageBottomText}
+                      onChange={(e) =>
+                        editProjects(index, {
+                          ...project,
+                          pageBottomText: e.target.value,
+                        })
+                      }
+                      className="w-4/5 ml-10 p-2 rounded-md shadow-lg border-2"
+                      type="text"
+                    ></input>
+                  </div>
+                  <div className="flex items-center mt-2">
+                    <label className="w-1/5 text-lg opacity-50">Button URL</label>
+                    <input
+                      value={project.url}
+                      onChange={(e) =>
+                        editProjects(index, {
+                          ...project,
+                          url: e.target.value,
+                        })
+                      }
+                      className="w-4/5 ml-10 p-2 rounded-md shadow-lg border-2"
+                      type="text"
+                    ></input>
+                  </div>
+                  <div className="flex items-center mt-2">
+                    <label className="w-1/5 text-lg opacity-50">Button Text</label>
                     <input
                       value={project.buttonText}
                       onChange={(e) =>

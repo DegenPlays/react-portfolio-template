@@ -2,7 +2,7 @@ import React from "react";
 import { useTheme } from "next-themes";
 import data from "../../data/portfolio.json";
 
-const Button = ({ children, type, onClick, classes }) => {
+const Button = ({ children, type = "button", onClick, classes }) => {
   const { theme } = useTheme();
   if (type === "primary") {
     return (
@@ -22,7 +22,7 @@ const Button = ({ children, type, onClick, classes }) => {
   return (
     <button
       onClick={onClick}
-      type="button"
+      type={type}
       className={`text-sm tablet:text-base p-1 laptop:p-2 m-1 laptop:m-2 rounded-lg flex items-center transition-all ease-out duration-300 ${
         theme === "dark"
           ? "hover:bg-slate-600 text-white"
