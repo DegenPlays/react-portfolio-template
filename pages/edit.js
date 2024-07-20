@@ -44,7 +44,7 @@ const Edit = () => {
       projects: [
         ...data.projects,
         {
-          id: uuidv4(),
+          id: data.projects.length,
           title: "New Project",
           description: "Web Design & Development",
           imageSrc:
