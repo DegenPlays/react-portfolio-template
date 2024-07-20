@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import { useTheme } from "next-themes";
 import Header from "../../components/Header";
 import Button from "../../components/Button";
@@ -15,6 +15,14 @@ const ProjectPage = ({ project }) => {
 
     const [email, setEmail] = useState('');
     const [message, setMessage] = useState('');
+    const [projectName, setProjectName] = useState('');
+
+    useEffect(() => {
+        if (project) {
+            setProjectName(project.title);
+            console.log(`Set projectName to: ${project.title}`);
+        }
+    }, [project]);
 
     if (!project) {
         return <p>Loading...</p>;
@@ -31,17 +39,17 @@ const ProjectPage = ({ project }) => {
 
     // Handle form submission
     const handleSubmit = async (e) => {
-        console.log("PRESSED SUBMIT");
         e.preventDefault();
+        console.log("PRESSED SUBMIT");
+        console.log(`Sending email: ${email} for project: ${projectName}`);
 
         try {
-            console.log("Sending email:", email);
             const response = await fetch("https://us-central1-phrasal-faculty-429817-m5.cloudfunctions.net/EMAIL-TO-SHEETS", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ email, projectName: project.name }),
+                body: JSON.stringify({ email, projectName }),
             });
 
             const result = await response.json();
