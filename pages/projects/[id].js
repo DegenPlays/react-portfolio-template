@@ -13,6 +13,7 @@ const ProjectPage = ({ project }) => {
     const { id } = router.query;
     const data = yourData;
 
+    const [userName, setUserName] = useState('');
     const [email, setEmail] = useState('');
     const [message, setMessage] = useState('');
     const [projectName, setProjectName] = useState('');
@@ -49,7 +50,7 @@ const ProjectPage = ({ project }) => {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                body: JSON.stringify({ email, projectName }),
+                body: JSON.stringify({ name:userName,email, projectName }),
             });
 
             const result = await response.json();
@@ -58,6 +59,7 @@ const ProjectPage = ({ project }) => {
             if (result.status === "success") {
                 setMessage(`Thank you! We have received your email: ${email}`);
                 setEmail('');  // Clear the input field
+                setUserName('');  // Clear the input field
             } else {
                 setMessage("Something went wrong. Please try again.");
             }
@@ -89,7 +91,7 @@ const ProjectPage = ({ project }) => {
                             style={{ height: "50px", width: "200px" }}
                         >
                             <img
-                                alt={project.name}
+                                alt={project.title}
                                 className="h-full w-full object-cover hover:scale-110 transition-all ease-out duration-300"
                                 src={project.titleImage}
                                 style={{ maxHeight: "100%", maxWidth: "100%", objectFit: "contain" }}
@@ -97,7 +99,7 @@ const ProjectPage = ({ project }) => {
                         </div>
                     ) : (
                         <h1 className="mt-5 text-3xl font-medium">
-                            {project.name ? project.name : "Project Name"}
+                            {project.title ? project.title : "Project Name"}
                         </h1>
                     )}
                     <h2
@@ -150,6 +152,14 @@ const ProjectPage = ({ project }) => {
                     {/* Email Submission Form */}
                     <div className="flex justify-center mt-10">
                         <form onSubmit={handleSubmit} className="flex flex-col items-center">
+                            <input
+                                type="string"
+                                value={userName}
+                                onChange={(e) => setUserName(e.target.value)}
+                                placeholder="Enter your name"
+                                className="p-2 border rounded mb-2"
+                                required
+                            />
                             <input
                                 type="email"
                                 value={email}
