@@ -48,13 +48,13 @@ const Edit = () => {
     // Find the first available ID
     let newId = 0;
     for (let i = 0; i < existingIds.length; i++) {
-        if (existingIds[i] !== i) {
-            newId = i;
-            break;
-        }
+      if (existingIds[i] !== i) {
+        newId = i;
+        break;
+      }
     }
     if (newId === existingIds.length) {
-        newId = existingIds.length;
+      newId = existingIds.length;
     }
     setData({
       ...data,
@@ -89,6 +89,62 @@ const Edit = () => {
     setData({ ...data, projects: copyProjects });
   };
 
+  // Tool Handler
+  const editTools = (toolIndex, editTool) => {
+    let copyTools = data.tools;
+    copyTools[toolIndex] = { ...editTool };
+    setData({ ...data, tools: copyTools });
+  };
+  const addTool = () => {
+    // Get a list of all current project IDs
+    const existingIds = data.tools.map(tool => tool.id);
+
+    // Sort the IDs
+    existingIds.sort((a, b) => a - b);
+
+    // Find the first available ID
+    let newId = 0;
+    for (let i = 0; i < existingIds.length; i++) {
+      if (existingIds[i] !== i) {
+        newId = i;
+        break;
+      }
+    }
+    if (newId === existingIds.length) {
+      newId = existingIds.length;
+    }
+    setData({
+      ...data,
+      tools: [
+        ...data.tools,
+        {
+          id: newId,
+          title: "New tool",
+          description: "Web Design & Development",
+          imageSrc:
+            "https://images.unsplash.com/photo-1517479149777-5f3b1511d5ad?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTAyfHxwYXN0ZWx8ZW58MHx8MHw%3D&auto=format&fit=crop&w=400&q=60",
+          videoText: "",
+          videoSrc:
+            "https://images.unsplash.com/photo-1517479149777-5f3b1511d5ad?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTAyfHxwYXN0ZWx8ZW58MHx8MHw%3D&auto=format&fit=crop&w=400&q=60",
+
+          toolUrl: "http://chetanverma.com/projects/" + uuidv4(),
+          url: "http://chetanverma.com/",
+          buttonText: "join",
+          toolVideoText: "",
+          toolVideoSrc:
+            "https://images.unsplash.com/photo-1517479149777-5f3b1511d5ad?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTAyfHxwYXN0ZWx8ZW58MHx8MHw%3D&auto=format&fit=crop&w=400&q=60",
+          pageBottomText:
+            "https://images.unsplash.com/photo-1517479149777-5f3b1511d5ad?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTAyfHxwYXN0ZWx8ZW58MHx8MHw%3D&auto=format&fit=crop&w=400&q=60",
+        },
+      ],
+    });
+  };
+
+  const deleteTool = (id) => {
+    const copyTools = data.tools;
+    copyTools = copyTools.filter((tool) => tool.id !== id);
+    setData({ ...data, tools: copyTools });
+  };
   // Services Handler
 
   const editServices = (serviceIndex, editService) => {
@@ -203,6 +259,12 @@ const Edit = () => {
               type={currentTabs === "PROJECTS" && "primary"}
             >
               Projects
+            </Button>
+            <Button
+              onClick={() => setCurrentTabs("TOOLS")}
+              type={currentTabs === "TOOLS" && "primary"}
+            >
+              Tools
             </Button>
             <Button
               onClick={() => setCurrentTabs("SERVICES")}
@@ -626,6 +688,226 @@ const Edit = () => {
             <div className="my-10">
               <Button onClick={addProject} type="primary">
                 Add Project +
+              </Button>
+            </div>
+          </>
+        )}
+        {/* Tools */}
+        {currentTabs === "TOOLS" && (
+          <>
+            <div className="mt-10">
+              {data.tools.map((tool, index) => (
+                <div className="mt-10" key={tool.id}>
+                  <div className="flex items-center justify-between">
+                    <h1 className="text-2xl">{tool.title}</h1>
+                    <Button
+                      onClick={() => deleteTool(tool.id)}
+                      type="primary"
+                    >
+                      Delete
+                    </Button>
+                  </div>
+
+                  <div className="flex items-center mt-5">
+                    <label className="w-1/5 text-lg opacity-50">Id</label>
+                    <input
+                      value={tool.id}
+                      onChange={(e) =>
+                        editTools(index, {
+                          ...tool,
+                          id: e.target.value,
+                        })
+                      }
+                      className="w-4/5 ml-10 p-2 rounded-md shadow-lg border-2"
+                      type="number"
+                    ></input>
+                  </div>
+                  <div className="flex items-center mt-5">
+                    <label className="w-1/5 text-lg opacity-50">Title</label>
+                    <input
+                      value={tool.title}
+                      onChange={(e) =>
+                        editTools(index, {
+                          ...tool,
+                          title: e.target.value,
+                        })
+                      }
+                      className="w-4/5 ml-10 p-2 rounded-md shadow-lg border-2"
+                      type="text"
+                    ></input>
+                  </div>
+                  <div className="flex items-center mt-5">
+                    <label className="w-1/5 text-lg opacity-50">Title Image</label>
+                    <input
+                      value={tool.titleImage}
+                      onChange={(e) =>
+                        editTools(index, {
+                          ...tool,
+                          titleImage: e.target.value,
+                        })
+                      }
+                      className="w-4/5 ml-10 p-2 rounded-md shadow-lg border-2"
+                      type="text"
+                    ></input>
+                  </div>
+                  <div className="flex items-center mt-2">
+                    <label className="w-1/5 text-lg opacity-50">
+                      Description
+                    </label>
+                    <input
+                      value={tool.description}
+                      onChange={(e) =>
+                        editTools(index, {
+                          ...tool,
+                          description: e.target.value,
+                        })
+                      }
+                      className="w-4/5 ml-10 p-2 rounded-md shadow-lg border-2"
+                      type="text"
+                    ></input>
+                  </div>
+                  <div className="flex items-center mt-2">
+                    <label className="w-1/5 text-lg opacity-50">
+                      Image Source
+                    </label>
+                    <input
+                      value={tool.imageSrc}
+                      onChange={(e) =>
+                        editTools(index, {
+                          ...tool,
+                          imageSrc: e.target.value,
+                        })
+                      }
+                      className="w-4/5 ml-10 p-2 rounded-md shadow-lg border-2"
+                      type="text"
+                    ></input>
+                  </div>
+                  <div className="flex items-center mt-2">
+                    <label className="w-1/5 text-lg opacity-50">
+                      Video Text
+                    </label>
+                    <input
+                      value={tool.videoText}
+                      onChange={(e) =>
+                        editTools(index, {
+                          ...tool,
+                          videoText: e.target.value,
+                        })
+                      }
+                      className="w-4/5 ml-10 p-2 rounded-md shadow-lg border-2"
+                      type="text"
+                    ></input>
+                  </div>
+                  <div className="flex items-center mt-2">
+                    <label className="w-1/5 text-lg opacity-50">
+                      Video Source
+                    </label>
+                    <input
+                      value={tool.videoSrc}
+                      onChange={(e) =>
+                        editTools(index, {
+                          ...tool,
+                          videoSrc: e.target.value,
+                        })
+                      }
+                      className="w-4/5 ml-10 p-2 rounded-md shadow-lg border-2"
+                      type="text"
+                    ></input>
+                  </div>
+                  <div className="flex items-center mt-2">
+                    <label className="w-1/5 text-lg opacity-50">Tool Page URL</label>
+                    <input
+                      value={tool.toolUrl}
+                      onChange={(e) =>
+                        editTools(index, {
+                          ...tool,
+                          toolUrl: e.target.value,
+                        })
+                      }
+                      className="w-4/5 ml-10 p-2 rounded-md shadow-lg border-2"
+                      type="text"
+                    ></input>
+                  </div>
+                  <div className="flex items-center mt-2">
+                    <label className="w-1/5 text-lg opacity-50">
+                      Tool Video Text
+                    </label>
+                    <input
+                      value={tool.toolVideoText}
+                      onChange={(e) =>
+                        editTools(index, {
+                          ...tool,
+                          toolVideoText: e.target.value,
+                        })
+                      }
+                      className="w-4/5 ml-10 p-2 rounded-md shadow-lg border-2"
+                      type="text"
+                    ></input>
+                  </div>
+                  <div className="flex items-center mt-2">
+                    <label className="w-1/5 text-lg opacity-50">Tool Video Source</label>
+                    <input
+                      value={tool.toolVideoSrc}
+                      onChange={(e) =>
+                        editTools(index, {
+                          ...tool,
+                          toolVideoSrc: e.target.value,
+                        })
+                      }
+                      className="w-4/5 ml-10 p-2 rounded-md shadow-lg border-2"
+                      type="text"
+                    ></input>
+                  </div>
+                  <div className="flex items-center mt-2">
+                    <label className="w-1/5 text-lg opacity-50">Button desciption</label>
+                    <input
+                      value={tool.pageBottomText}
+                      onChange={(e) =>
+                        editTools(index, {
+                          ...tool,
+                          pageBottomText: e.target.value,
+                        })
+                      }
+                      className="w-4/5 ml-10 p-2 rounded-md shadow-lg border-2"
+                      type="text"
+                    ></input>
+                  </div>
+                  <div className="flex items-center mt-2">
+                    <label className="w-1/5 text-lg opacity-50">Button URL</label>
+                    <input
+                      value={tool.url}
+                      onChange={(e) =>
+                        editTools(index, {
+                          ...tool,
+                          url: e.target.value,
+                        })
+                      }
+                      className="w-4/5 ml-10 p-2 rounded-md shadow-lg border-2"
+                      type="text"
+                    ></input>
+                  </div>
+                  <div className="flex items-center mt-2">
+                    <label className="w-1/5 text-lg opacity-50">Button Text</label>
+                    <input
+                      value={tool.buttonText}
+                      onChange={(e) =>
+                        editTools(index, {
+                          ...tool,
+                          buttonText: e.target.value,
+                        })
+                      }
+                      className="w-4/5 ml-10 p-2 rounded-md shadow-lg border-2"
+                      type="text"
+                    ></input>
+                  </div>
+                  <hr className="my-10"></hr>
+                </div>
+              ))}
+            </div>
+
+            <div className="my-10">
+              <Button onClick={addTool} type="primary">
+                Add Tool +
               </Button>
             </div>
           </>

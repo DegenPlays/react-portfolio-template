@@ -4,6 +4,7 @@ import Header from "../components/Header";
 import ServiceCard from "../components/ServiceCard";
 import Socials from "../components/Socials";
 import WorkCard from "../components/WorkCard";
+import ToolCard from "../components/ToolCard";
 import { useIsomorphicLayoutEffect } from "../utils";
 import { stagger } from "../animations";
 import Footer from "../components/Footer";
@@ -19,6 +20,7 @@ export default function Home() {
   const router = useRouter();
   // Ref
   const workRef = useRef();
+  const toolRef = useRef();
   const aboutRef = useRef();
   const textOne = useRef();
   const textTwo = useRef();
@@ -104,21 +106,68 @@ export default function Home() {
           </div>
 
           <div className="mt-5 laptop:mt-10 grid grid-cols-1 tablet:grid-cols-2 gap-4">
-            {data.projects.map((project) => (
-              <WorkCard
-                key={project.id}
-                img={project.imageSrc}
-                video={project.videoSrc}
-                name={project.title}
-                logo={project.titleImage}
-                description={project.description}
-                onClick={() => router.push(project.projectUrl)}
-              />
-            ))}
+            {(process.env.NODE_ENV === "development") ? (
+              data.projects.map((project) => (
+                <WorkCard
+                  key={project.id}
+                  img={project.imageSrc}
+                  video={project.videoSrc}
+                  name={project.title}
+                  logo={project.titleImage}
+                  description={project.description}
+                  onClick={() => router.push('http://localhost:3000/projects/' + project.id)}
+                />
+              )))
+              : (
+                data.projects.map((project) => (
+                  <WorkCard
+                    key={project.id}
+                    img={project.imageSrc}
+                    video={project.videoSrc}
+                    name={project.title}
+                    logo={project.titleImage}
+                    description={project.description}
+                    onClick={() => router.push(project.projectUrl)}
+                  />
+                )))
+            }
           </div>
         </div>
+      <div className="mt-10 laptop:mt-30 p-2 laptop:p-0" ref={toolRef}>
+        <div className="flex justify-center mt-5">
+          <h1 id="tools" className="text-2xl text-bold">Tools</h1>
+        </div>
+        <div className="mt-5 laptop:mt-10 grid grid-cols-1 tablet:grid-cols-2 gap-4">
+          
+        {(process.env.NODE_ENV === "development") ? (
+            data.tools.map((tool) => (
+              <ToolCard
+                key={tool.id}
+                img={tool.imageSrc}
+                video={tool.videoSrc}
+                name={tool.title}
+                logo={tool.titleImage}
+                description={tool.description}
+                onClick={() => router.push('http://localhost:3000/tools/' +tool.id)}
+              />
+            ))
+          ):(
+            data.tools.map((tool) => (
+              <ToolCard
+                key={tool.id}
+                img={tool.imageSrc}
+                video={tool.videoSrc}
+                name={tool.title}
+                logo={tool.titleImage}
+                description={tool.description}
+                onClick={() => router.push(tool.toolUrl)}
+              />
+            )))
+          }
+        </div>
+      </div>
 
-        {/* <div className="mt-10 laptop:mt-30 p-2 laptop:p-0">
+      {/* <div className="mt-10 laptop:mt-30 p-2 laptop:p-0">
           <h1 className="tablet:m-10 text-2xl text-bold">Services.</h1>
           <div className="mt-5 tablet:m-10 grid grid-cols-1 laptop:grid-cols-2 gap-6">
             {data.services.map((service, index) => (
@@ -130,22 +179,22 @@ export default function Home() {
             ))}
           </div>
         </div> */}
-        {/* This button should not go into production */}
-        {process.env.NODE_ENV === "development" && (
-          <div className="fixed bottom-5 right-5">
-            <Link href="/edit">
-              <Button type="primary">Edit Data</Button>
-            </Link>
-          </div>
-        )}
-        {/* <div className="mt-10 laptop:mt-40 p-2 laptop:p-0" ref={aboutRef}>
+      {/* This button should not go into production */}
+      {process.env.NODE_ENV === "development" && (
+        <div className="fixed bottom-5 right-5">
+          <Link href="/edit">
+            <Button type="primary">Edit Data</Button>
+          </Link>
+        </div>
+      )}
+      {/* <div className="mt-10 laptop:mt-40 p-2 laptop:p-0" ref={aboutRef}>
           <h1 id="about"className="tablet:m-10 text-2xl text-bold">About.</h1>
           <p className="tablet:m-10 mt-2 text-xl laptop:text-3xl w-full laptop:w-3/5">
             {data.aboutpara}
           </p>
         </div> */}
-        {/* <Footer /> */}
-      </div>
+      {/* <Footer /> */}
     </div>
+    </div >
   );
 }
