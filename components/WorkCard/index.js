@@ -3,7 +3,8 @@ import React from "react";
 const WorkCard = ({ img, video, name, logo, description, onClick }) => {
   return (
     <div
-      className="overflow-hidden rounded-lg p-2 laptop:p-4 first:ml-0 link"
+      className="work-card overflow-hidden rounded-lg p-2 laptop:p-4 first:ml-0 link" 
+      // style={{ cursor: 'pointer' }}
       onClick={onClick}
     >
       {logo ? (<div
